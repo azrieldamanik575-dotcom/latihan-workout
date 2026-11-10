@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuscleUp - Detail Latihan</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .workout-main-card {
+            background: #17202a;
+            border: 1px solid #1f2937;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #00ff66;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .workout-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+
+        .workout-meta {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .btn-start-main {
+            width: 100%;
+            background: #22c55e;
+            color: #000;
+            border: none;
+            padding: 14px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-start-main:hover {
+            opacity: 0.9;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title span {
+            font-size: 12px;
+            color: #777;
+            font-weight: normal;
+        }
+
+        .exercise-card {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .exercise-card:hover {
+            border-color: #22c55e;
+        }
+
+        .drag-handle {
+            color: #555;
+            font-size: 18px;
+            margin-right: 12px;
+        }
+
+        .exercise-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+        }
+
+        .exercise-icon-box {
+            width: 48px;
+            height: 48px;
+            background: #242424;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .exercise-name {
+            font-size: 15px;
+            font-weight: bold;
+            margin: 0 0 4px 0;
+        }
+
+        .exercise-detail {
+            font-size: 12px;
+            color: #22c55e;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .exercise-action {
+            color: #555;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <!-- Kartu Utama Workout -->
+        <div class="workout-main-card">
+            <a href="dashboard.html" class="back-link">← Kembali</a>
+            <h1 class="workout-title" id="mainTitle">Latihan Dada (Chest) 💥</h1>
+            <p class="workout-meta" id="mainMeta">⏱️ 22 Menit &nbsp;&nbsp; 🔥 4 Latihan</p>
+            <button class="btn-start-main" id="mainStartBtn" onclick="mulaiLatihanPertama()">Mulai Latihan</button>
+        </div>
+
+        <div class="section-title">
+            Daftar Latihan <span id="exerciseCountText">4 Gerakan</span>
+        </div>
+
+        <!-- Wadah List Latihan Dinamis -->
+        <div id="exerciseListContainer"></div>
+    </main>
+
+    <script>
+        // Kamus Data untuk Kategori Latihan
+        const workoutData = {
+            dada: {
+                title: "Latihan Dada (Chest) 💥",
+                meta: "⏱️ 22 Menit &nbsp;&nbsp; 🔥 4 Latihan",
+                count: "4 Gerakan",
+                exercises: [
+                    { name: "Push Up", detail: "x10", icon: "🤸‍♂️" },
+                    { name: "Loncat bintang", detail: "00:30", icon: "💪" },
+                    { name: "Push Up lutut", detail: "x10", icon: "🏋️‍♂️" },
+                    { name: "Push Up Tangan Melebar", detail: "x10", icon: "🤸‍♂️" }
+                ]
+            },
+            perut: {
+                title: "Latihan Perut (Abs) 🔥",
+                meta: "⏱️ 26 Menit &nbsp;&nbsp; 🔥 4 Latihan",
+                count: "4 Gerakan",
+                exercises: [
+                    { name: "Crunch", detail: "x20", icon: "🧘‍♂️" },
+                    { name: "Leg Raise", detail: "x15", icon: "🤸‍♂️" },
+                    { name: "Plank", detail: "00:45", icon: "🔥" },
+                    { name: "Sit Up", detail: "x20", icon: "💪" }
+                ]
+            },
+            lengan: {
+                title: "Latihan Lengan (Arms) 💪",
+                meta: "⏱️ 18 Menit &nbsp;&nbsp; 🔥 3 Latihan",
+                count: "3 Gerakan",
+                exercises: [
+                    { name: "Bicep Curls", detail: "x15", icon: "🥊" },
+                    { name: "Tricep Dips", detail: "x12", icon: "🪑" },
+                    { name: "Hammer Curls", detail: "x15", icon: "💪" }
+                ]
+            },
+            kaki: {
+                title: "Latihan Kaki (Legs) 🦵",
+                meta: "⏱️ 25 Menit &nbsp;&nbsp; 🔥 3 Latihan",
+                count: "3 Gerakan",
+                exercises: [
+                    { name: "Squats", detail: "x15", icon: "🏋️" },
+                    { name: "Lunges", detail: "x12", icon: "🏃" },
+                    { name: "Leg Press", detail: "x15", icon: "🦵" }
+                ]
+            }
+        };
+
+        // Ambil parameter kategori dari URL ('kategori' atau 'category')
+        const urlParams = new URLSearchParams(window.location.search);
+        const rawCategory = urlParams.get('kategori') || urlParams.get('category') || 'dada';
+        const cleanCategory = decodeURIComponent(rawCategory).toLowerCase();
+
+        // Tentukan kategori yang dipilih
+        let categoryKey = 'dada';
+        if (cleanCategory.includes('kaki') || cleanCategory.includes('leg')) {
+            categoryKey = 'kaki';
+        } else if (cleanCategory.includes('perut') || cleanCategory.includes('ab')) {
+            categoryKey = 'perut';
+        } else if (cleanCategory.includes('lengan') || cleanCategory.includes('arm')) {
+            categoryKey = 'lengan';
+        } else if (cleanCategory.includes('dada') || cleanCategory.includes('chest')) {
+            categoryKey = 'dada';
+        }
+
+        const currentWorkout = workoutData[categoryKey] || workoutData.dada;
+
+        document.getElementById('mainTitle').innerHTML = currentWorkout.title;
+        document.getElementById('mainMeta').innerHTML = currentWorkout.meta;
+        document.getElementById('exerciseCountText').innerText = currentWorkout.count;
+
+        // Render card daftar gerakan ke HTML
+        const container = document.getElementById('exerciseListContainer');
+        container.innerHTML = "";
+
+        currentWorkout.exercises.forEach(ex => {
+            container.innerHTML += `
+                <div class="exercise-card" onclick="bukaLatihan('${ex.name}', '${ex.detail}', '${ex.icon}')">
+                    <div class="drag-handle">☰</div>
+                    <div class="exercise-info">
+                        <div class="exercise-icon-box">${ex.icon}</div>
+                        <div>
+                            <h4 class="exercise-name">${ex.name}</h4>
+                            <p class="exercise-detail">${ex.detail}</p>
+                        </div>
+                    </div>
+                    <div class="exercise-action">⇄</div>
+                </div>
+            `;
+        });
+
+        // Fungsi tombol utama Mulai Latihan
+        function mulaiLatihanPertama() {
+            if (currentWorkout.exercises.length > 0) {
+                const first = currentWorkout.exercises[0];
+                bukaLatihan(first.name, first.detail, first.icon);
+            }
+        }
+
+        // Fungsi pindah ke halaman timer dengan membawa parameter
+        function bukaLatihan(namaGerakan, detail, icon) {
+            const params = new URLSearchParams({
+                exercise: namaGerakan,
+                spec: detail || '',
+                emoji: icon || '',
+                kategori: categoryKey
+            });
+            window.location.href = `timer.html?${params.toString()}`;
+        }
+    </script>
+</body>
+</html>

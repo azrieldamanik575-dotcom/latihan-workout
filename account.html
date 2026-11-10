@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout - Pengaturan</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 80px;
+        }
+
+        .settings-container {
+            padding: 20px 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 20px 0;
+            color: #fff;
+        }
+
+        .settings-item {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            padding: 15px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .settings-item:hover {
+            border-color: #00ff66;
+        }
+
+        .settings-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .settings-icon {
+            width: 40px;
+            height: 40px;
+            background: #242424;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .settings-info h4 {
+            margin: 0 0 3px 0;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .settings-info p {
+            margin: 0;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .settings-right {
+            color: #888;
+            font-size: 16px;
+        }
+
+        .settings-item.danger .settings-icon {
+            background: rgba(255, 77, 77, 0.15);
+            color: #ff4d4d;
+        }
+
+        .settings-item.danger h4 {
+            color: #ff4d4d;
+        }
+
+        /* Bottom Navbar Melayang */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #1a1a1a;
+            border-top: 1px solid #2a2a2a;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #888;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-item.active, .nav-item:hover { color: #00ff66; }
+        .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
+    </style>
+</head>
+<body>
+
+    <main class="settings-container">
+        <h2 class="page-title">Pengaturan</h2>
+
+        <!-- Card Profil User -->
+        <div class="settings-item" style="cursor: default;">
+            <div class="settings-left">
+                <div class="settings-icon" style="color: #00ff66;">👤</div>
+                <div class="settings-info">
+                    <h4 id="accName">Azriel</h4>
+                    <p>Akun Lokal Aktif</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu 1: Pengaturan Latihan -->
+        <a href="dashboard.html" class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="color: #00ff66;">🏋️</div>
+                <div class="settings-info">
+                    <h4>Pengaturan Latihan</h4>
+                    <p>Kelola menu dan sesi latihan</p>
+                </div>
+            </div>
+            <div class="settings-right">›</div>
+        </a>
+
+        <!-- Menu 2: STEP TRACKER (MENU BARU) -->
+        <a href="steps.html" class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="color: #00ff66;">🚶‍♂️</div>
+                <div class="settings-info">
+                    <h4>Step Tracker</h4>
+                    <p>Hitung langkah & jarak tempuh harian</p>
+                </div>
+            </div>
+            <div class="settings-right">›</div>
+        </a>
+
+        <!-- Menu 3: Logout -->
+        <div class="settings-item" id="logoutItem">
+            <div class="settings-left">
+                <div class="settings-icon" style="color: #ffa500;">🚪</div>
+                <div class="settings-info">
+                    <h4>Keluar (Logout)</h4>
+                    <p>Keluar dari sesi perangkat ini</p>
+                </div>
+            </div>
+            <div class="settings-right">›</div>
+        </div>
+
+        <!-- Menu 4: Hapus Akun -->
+        <div class="settings-item danger" id="deleteAccountBtn">
+            <div class="settings-left">
+                <div class="settings-icon">⚠️</div>
+                <div class="settings-info">
+                    <h4>Hapus Akun & Reset Data</h4>
+                    <p>Hapus seluruh riwayat dan kalori latihan</p>
+                </div>
+            </div>
+            <div class="settings-right">›</div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Latihan
+        </a>
+        <a href="progress.html" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+            Laporan
+        </a>
+        <a href="account.html" class="nav-item active">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            Pengaturan
+        </a>
+    </nav>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", function() {
+            let savedName = localStorage.getItem("userName") || "Azriel";
+            savedName = savedName.replace(/\(Google\)/gi, '').trim();
+            document.getElementById("accName").innerText = savedName;
+        });
+
+        document.getElementById("deleteAccountBtn").addEventListener("click", function() {
+            if (confirm("Apakah kamu yakin ingin menghapus akun dan mereset semua data latihan?")) {
+                localStorage.clear();
+                alert("Akun dan data latihan berhasil direset.");
+                window.location.href = "index.html";
+            }
+        });
+
+        document.getElementById("logoutItem").addEventListener("click", function() {
+            if (confirm("Keluar dari aplikasi?")) {
+                localStorage.removeItem("userName");
+                window.location.href = "index.html";
+            }
+        });
+    </script>
+</body>
+</html>

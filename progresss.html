@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuscleUp - Progress & Hari Beruntun</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .progress-container {
+            max-width: 480px;
+            margin: 30px auto;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        /* Ikon Api & Angka Streak */
+        .streak-fire-box {
+            position: relative;
+            margin: 20px auto;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(255, 77, 77, 0.4);
+        }
+        .streak-number {
+            font-size: 56px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+        .streak-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        .streak-best {
+            color: #888;
+            font-size: 15px;
+            margin-top: 5px;
+            margin-bottom: 25px;
+        }
+        .streak-best span {
+            color: #3b82f6;
+            font-weight: bold;
+        }
+
+        /* Kotak Kalender Mingguan */
+        .week-calendar {
+            background: #121212;
+            border: 1px solid #262626;
+            border-radius: 16px;
+            padding: 20px 10px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .day-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .day-name {
+            font-size: 13px;
+            color: #888;
+            font-weight: 600;
+        }
+        .day-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #262626;
+            color: #aaa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        /* Jika hari tersebut aktif/sudah latihan */
+        .day-col.active .day-circle {
+            background: #2563eb;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+        }
+        .day-col.active .day-name {
+            color: #2563eb;
+        }
+
+        /* Pesan Motivasi */
+        .motivation-box {
+            font-size: 15px;
+            color: #bbb;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        /* Tombol Aksi */
+        .action-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .btn-custom {
+            width: 100%;
+            padding: 16px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: block;
+            box-sizing: border-box;
+        }
+        .btn-light-custom {
+            background: #ffffff;
+            color: #000000;
+        }
+        .btn-blue-custom {
+            background: #2563eb;
+            color: #ffffff;
+        }
+        .btn-custom:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body class="dashboard-body">
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <h1 class="logo">MUSCLE<span>UP</span></h1>
+        <div class="nav-links" style="display: flex; gap: 15px; align-items: center;">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="progress.html" class="active-nav">Progress</a>
+        </div>
+        <div class="user-profile">
+            <span id="navUserName">Azriel</span>
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <div class="progress-container">
+            
+            <!-- Logo Api & Angka Streak -->
+            <div class="streak-fire-box">
+                <span class="streak-number" id="streakCount">1</span>
+            </div>
+
+            <div class="streak-title">Hari Beruntun</div>
+            <div class="streak-best">Terbaik: <span id="bestStreak">1</span> hari</div>
+
+            <!-- Kalender Mingguan (Min - Sab) -->
+            <div class="week-calendar" id="weekCalendarContainer">
+                <!-- Diisi otomatis oleh JavaScript -->
+            </div>
+
+            <!-- Pesan Motivasi -->
+            <div class="motivation-box" id="motivationText">
+                Kerja bagus hari ini! Pertahankan energi Anda dan bergabunglah kembali dengan kami besok.
+            </div>
+
+            <!-- Tombol Aksi -->
+            <div class="action-btn-group">
+                <a href="dashboard.html" class="btn-custom btn-light-custom">Lakukan lebih banyak latihan</a>
+                <a href="dashboard.html" class="btn-custom btn-blue-custom">Lihat Imbalan</a>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Logika untuk menghitung Streak & Menandai Kalender Mingguan
+        window.addEventListener('DOMContentLoaded', function() {
+            // Ambil data dari localStorage (atau set default 1 jika baru pertama kali)
+            let streak = parseInt(localStorage.getItem('streakCount') || '1');
+            let best = parseInt(localStorage.getItem('bestStreak') || '1');
+
+            document.getElementById('streakCount').innerText = streak;
+            document.getElementById('bestStreak').innerText = best;
+
+            // Render Kalender Sederhana (Contoh: Menandai hari ini)
+            const days = [
+                { name: "Min", date: 8 },
+                { name: "Sen", date: 9 },
+                { name: "Sel", date: 10, active: true }, // Hari aktif
+                { name: "Rab", date: 11 },
+                { name: "Kam", date: 12 },
+                { name: "Jum", date: 13 },
+                { name: "Sab", date: 14 }
+            ];
+
+            const calendarEl = document.getElementById('weekCalendarContainer');
+            calendarEl.innerHTML = '';
+
+            days.forEach(d => {
+                const col = document.createElement('div');
+                col.className = `day-col ${d.active ? 'active' : ''}`;
+                col.innerHTML = `
+                    <span class="day-name">${d.name}</span>
+                    <div class="day-circle">${d.active ? '✓' : d.date}</div>
+                `;
+                calendarEl.appendChild(col);
+            });
+
+            // Sinkronisasi Nama User
+            const savedName = localStorage.getItem("userName");
+            if (savedName && document.getElementById("navUserName")) {
+                document.getElementById("navUserName").textContent = savedName;
+            }
+        });
+    </script>
+</body>
+</html>

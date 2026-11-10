@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout - Step Tracker Live</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px 15px;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .back-btn {
+            background: #242424;
+            color: #fff;
+            border: 1px solid #333;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .circle-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring__circle {
+            stroke-dasharray: 565;
+            stroke-dashoffset: 565;
+            transition: stroke-dashoffset 0.3s ease-in-out;
+        }
+
+        .circle-content {
+            position: absolute;
+            text-align: center;
+        }
+
+        .circle-icon {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+
+        .step-count {
+            font-size: 34px;
+            font-weight: bold;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .step-goal {
+            font-size: 12px;
+            color: #888888;
+            margin-top: 6px;
+        }
+
+        .timer-card {
+            background: #1a1a1a;
+            border: 1px solid #00ff66;
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .live-timer-display {
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ff66;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            font-family: monospace;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn-control {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-start { background: #00ff66; color: #000; }
+        .btn-pause { background: #ffa500; color: #000; }
+        .btn-stop { background: #ff4d4d; color: #fff; }
+
+        .btn-control:hover { opacity: 0.9; }
+
+        .mode-selector {
+            display: flex;
+            background: #242424;
+            border-radius: 10px;
+            padding: 4px;
+            margin-bottom: 12px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #888;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .mode-btn.active {
+            background: #333;
+            color: #00ff66;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mini-stat {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 14px;
+            padding: 12px 8px;
+            text-align: center;
+        }
+
+        .mini-stat-icon { font-size: 16px; margin-bottom: 4px; }
+        .mini-stat-value { font-size: 15px; font-weight: bold; color: #00ff66; margin: 0; }
+        .mini-stat-label { font-size: 10px; color: #888; margin: 2px 0 0 0; }
+
+        .action-box {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 16px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-step {
+            background: #242424;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            position: relative;
+            z-index: 11;
+        }
+
+        .btn-step:hover { border-color: #00ff66; color: #00ff66; }
+
+        .btn-reset {
+            width: 100%;
+            background: rgba(255, 77, 77, 0.1);
+            color: #ff4d4d;
+            border: 1px solid rgba(255, 77, 77, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 12px;
+            margin-top: 10px;
+            cursor: pointer;
+            position: relative;
+            z-index: 11;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #1a1a1a;
+            border-top: 1px solid #2a2a2a;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #888;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-item.active, .nav-item:hover { color: #00ff66; }
+        .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <div class="step-header">
+            <a href="account.html" class="back-btn">‹</a>
+            <h2 class="page-title">Step Tracker Live</h2>
+        </div>
+
+        <div class="circle-container">
+            <svg class="progress-ring" width="200" height="200">
+                <circle stroke="#242424" stroke-width="12" fill="transparent" r="90" cx="100" cy="100"/>
+                <circle id="progressCircle" class="progress-ring__circle" stroke="#00ff66" stroke-width="12" stroke-linecap="round" fill="transparent" r="90" cx="100" cy="100"/>
+            </svg>
+            <div class="circle-content">
+                <div class="circle-icon" id="activityIcon">🚶‍♂️</div>
+                <h3 class="step-count" id="stepCount">0</h3>
+                <p class="step-goal">Target: 1,000</p>
+            </div>
+        </div>
+
+        <div class="timer-card">
+            <div class="mode-selector">
+                <button class="mode-btn active" id="modeWalkBtn" onclick="setMode('walk')">🚶‍♂️ Jalan</button>
+                <button class="mode-btn" id="modeRunBtn" onclick="setMode('run')">🏃‍♂️ Lari</button>
+            </div>
+
+            <div class="live-timer-display" id="timerDisplay">00:00:00</div>
+
+            <div class="timer-controls">
+                <button class="btn-control btn-start" id="startBtn" onclick="startTracking()">Mulai</button>
+                <button class="btn-control btn-pause" id="pauseBtn" onclick="pauseTracking()" style="display:none;">Jeda</button>
+                <button class="btn-control btn-stop" id="stopBtn" onclick="stopTracking()" style="display:none;">Selesai</button>
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <div class="mini-stat">
+                <div class="mini-stat-icon">🔥</div>
+                <h4 class="mini-stat-value" id="valKcal">0</h4>
+                <p class="mini-stat-label">Kcal Terbakar</p>
+            </div>
+            <div class="mini-stat">
+                <div class="mini-stat-icon">📍</div>
+                <h4 class="mini-stat-value" id="valKm">0.0</h4>
+                <p class="mini-stat-label">Jarak (Km)</p>
+            </div>
+            <div class="mini-stat">
+                <div class="mini-stat-icon">⏱️</div>
+                <h4 class="mini-stat-value" id="valTime">0m</h4>
+                <p class="mini-stat-label">Waktu Aktif</p>
+            </div>
+        </div>
+
+        <div class="action-box">
+            <h4 style="margin: 0 0 4px 0; font-size: 13px;">Tambah Langkah Manual</h4>
+            <div class="btn-grid">
+                <button class="btn-step" onclick="addSteps(500)">+500 Langkah</button>
+                <button class="btn-step" onclick="addSteps(1000)">+1,000 Langkah</button>
+                <button class="btn-step" onclick="addSteps(2000)">+2,000 Langkah</button>
+                <button class="btn-step" onclick="customStepInput()">+ Input Custom</button>
+            </div>
+
+            <button class="btn-reset" onclick="resetSteps()">Reset Langkah Hari Ini</button>
+        </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Latihan
+        </a>
+        <a href="progress.html" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+            Laporan
+        </a>
+        <a href="account.html" class="nav-item active">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            Pengaturan
+        </a>
+    </nav>
+
+    <script>
+        const CIRCLE_CIRCUMFERENCE = 565;
+        let currentMode = 'walk';
+        let timerInterval = null;
+        let secondsElapsed = 0;
+        let isRunning = false;
+
+        window.addEventListener("DOMContentLoaded", function() {
+            if (!localStorage.getItem("stepGoal")) {
+                localStorage.setItem("stepGoal", "1000");
+            }
+            renderSteps();
+        });
+
+        function setMode(mode) {
+            if (isRunning) {
+                alert("Jeda atau stop timer dulu kalau mau ubah mode!");
+                return;
+            }
+            currentMode = mode;
+            if (mode === 'walk') {
+                document.getElementById('modeWalkBtn').classList.add('active');
+                document.getElementById('modeRunBtn').classList.remove('active');
+                document.getElementById('activityIcon').innerText = '🚶‍♂️';
+            } else {
+                document.getElementById('modeRunBtn').classList.add('active');
+                document.getElementById('modeWalkBtn').classList.remove('active');
+                document.getElementById('activityIcon').innerText = '🏃‍♂️';
+            }
+            renderSteps();
+        }
+
+        function startTracking() {
+            if (timerInterval) clearInterval(timerInterval);
+
+            isRunning = true;
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('pauseBtn').style.display = 'inline-block';
+            document.getElementById('stopBtn').style.display = 'inline-block';
+
+            timerInterval = setInterval(function() {
+                secondsElapsed++;
+                updateTimerDisplay();
+                addSteps(1);
+            }, 1000);
+        }
+
+        function pauseTracking() {
+            isRunning = false;
+            if (timerInterval) clearInterval(timerInterval);
+            document.getElementById('startBtn').style.display = 'inline-block';
+            document.getElementById('startBtn').innerText = 'Lanjut';
+            document.getElementById('pauseBtn').style.display = 'none';
+        }
+
+        function stopTracking() {
+            isRunning = false;
+            if (timerInterval) clearInterval(timerInterval);
+
+            let steps = parseInt(localStorage.getItem("userSteps") || "0");
+            let kcal = Math.round(steps * (currentMode === 'walk' ? 0.04 : 0.07));
+            let km = (steps * (currentMode === 'walk' ? 0.75 : 1.1) / 1000).toFixed(1);
+
+            // Simpan otomatis ke Riwayat Laporan
+            saveToHistory({
+                date: new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' }),
+                activity: currentMode === 'walk' ? 'Jalan Kaki' : 'Lari',
+                steps: steps,
+                km: km,
+                kcal: kcal
+            });
+
+            secondsElapsed = 0;
+            updateTimerDisplay();
+            document.getElementById('startBtn').style.display = 'inline-block';
+            document.getElementById('startBtn').innerText = 'Mulai';
+            document.getElementById('pauseBtn').style.display = 'none';
+            document.getElementById('stopBtn').style.display = 'none';
+
+            alert("Sesi latihan selesai! Data berhasil disimpan ke Riwayat Laporan. 🎉");
+        }
+
+        function saveToHistory(entry) {
+            let history = JSON.parse(localStorage.getItem("workoutHistory") || "[]");
+            history.unshift(entry);
+            if (history.length > 10) history.pop();
+            localStorage.setItem("workoutHistory", JSON.stringify(history));
+        }
+
+        function updateTimerDisplay() {
+            let hrs = Math.floor(secondsElapsed / 3600).toString().padStart(2, '0');
+            let mins = Math.floor((secondsElapsed % 3600) / 60).toString().padStart(2, '0');
+            let secs = (secondsElapsed % 60).toString().padStart(2, '0');
+            document.getElementById('timerDisplay').innerText = `${hrs}:${mins}:${secs}`;
+        }
+
+        function renderSteps() {
+            let steps = parseInt(localStorage.getItem("userSteps") || "0");
+            let currentGoal = parseInt(localStorage.getItem("stepGoal") || "1000");
+
+            document.getElementById("stepCount").innerText = steps.toLocaleString();
+            document.querySelector(".step-goal").innerText = "Target: " + currentGoal.toLocaleString();
+
+            let strideMeter = (currentMode === 'walk') ? 0.75 : 1.1;
+            let kcalFactor = (currentMode === 'walk') ? 0.04 : 0.07;
+
+            let kcal = Math.round(steps * kcalFactor);
+            let km = (steps * strideMeter / 1000).toFixed(1);
+            let mins = Math.round(steps / 60);
+
+            document.getElementById("valKcal").innerText = kcal;
+            document.getElementById("valKm").innerText = km;
+            document.getElementById("valTime").innerText = mins + "m";
+
+            const circle = document.getElementById("progressCircle");
+            let percent = Math.min(steps / currentGoal, 1);
+            let offset = CIRCLE_CIRCUMFERENCE - (percent * CIRCLE_CIRCUMFERENCE);
+            circle.style.strokeDashoffset = offset;
+        }
+
+        function addSteps(count) {
+            let currentSteps = parseInt(localStorage.getItem("userSteps") || "0");
+            let currentGoal = parseInt(localStorage.getItem("stepGoal") || "1000");
+
+            let totalSteps = currentSteps + count;
+            localStorage.setItem("userSteps", totalSteps);
+
+            if (totalSteps >= currentGoal) {
+                let wasRunning = isRunning;
+                if (wasRunning) pauseTracking();
+
+                alert(`🎉 Selamat! Target ${currentGoal.toLocaleString()} langkah tercapai!🔥\n\nTarget berikutnya naik ke ${(currentGoal + 1000).toLocaleString()} langkah!`);
+
+                localStorage.setItem("stepGoal", (currentGoal + 1000).toString());
+
+                if (wasRunning) startTracking();
+            }
+
+            renderSteps();
+        }
+
+        function customStepInput() {
+            let val = prompt("Masukkan jumlah langkah tambahan:", "1000");
+            if (val !== null && val.trim() !== "" && !isNaN(val)) {
+                addSteps(parseInt(val));
+            }
+        }
+
+        function resetSteps() {
+            if (confirm("Reset langkah hari ini dan kembali ke target 1.000?")) {
+                localStorage.setItem("userSteps", "0");
+                localStorage.setItem("stepGoal", "1000");
+                renderSteps();
+            }
+        }
+    </script>
+</body>
+</html>

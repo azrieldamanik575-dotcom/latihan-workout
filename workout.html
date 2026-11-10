@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuscleUp - Otot Perut Lanjutan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <h1 class="logo">MUSCLE<span>UP</span></h1>
+        
+        <div class="nav-links" style="display: flex; gap: 15px; align-items: center;">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="progress.html">Progress</a>
+        </div>
+
+        <div class="user-profile">
+            <span id="navUserName">Azriel</span>
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+    </header>
+
+    <!-- Container Utama -->
+    <main class="dashboard-container">
+
+        <!-- Banner Hero / Header Workout -->
+        <section class="workout-hero-card">
+            <button class="back-btn" onclick="window.location.href='dashboard.html'">← Kembali</button>
+            <div class="hero-content">
+                <h2>Otot Perut Lanjutan 🔥</h2>
+                <div class="workout-meta">
+                    <span>⏱️ 26 Menit</span>
+                    <span>🔥 21 Latihan</span>
+                </div>
+                <button class="primary-start-btn" onclick="alert('Sesi latihan dimulai! Semangat!')">Mulai Latihan</button>
+            </div>
+        </section>
+
+        <!-- Daftar Latihan -->
+        <div class="section-header-flex">
+            <h2 class="section-title">Daftar Latihan</h2>
+            <span class="sub-text">21 Gerakan</span>
+        </div>
+
+        <section class="exercise-list">
+
+            <!-- Item 1 -->
+            <div class="exercise-card">
+                <div class="exercise-left">
+                    <span class="drag-icon">☰</span>
+                    <div class="exercise-img-box">
+                        <span style="font-size: 26px;">🏃‍♂️</span>
+                    </div>
+                    <div class="exercise-info">
+                        <h3>Crunch</h3>
+                        <p class="exercise-spec">15x</p>
+                    </div>
+                </div>
+                <span class="swap-icon">⇆</span>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="exercise-card">
+                <div class="exercise-left">
+                    <span class="drag-icon">☰</span>
+                    <div class="exercise-img-box">
+                        <span style="font-size: 26px;">🧘‍♂️</span>
+                    </div>
+                    <div class="exercise-info">
+                        <h3>Sit Up</h3>
+                        <p class="exercise-spec">x20</p>
+                    </div>
+                </div>
+                <span class="swap-icon">⇆</span>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="exercise-card">
+                <div class="exercise-left">
+                    <span class="drag-icon">☰</span>
+                    <div class="exercise-img-box">
+                        <span style="font-size: 26px;">💪</span>
+                    </div>
+                    <div class="exercise-info">
+                        <h3>Bicycle Crunch</h3>
+                        <p class="exercise-spec">x20</p>
+                    </div>
+                </div>
+                <span class="swap-icon">⇆</span>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="exercise-card">
+                <div class="exercise-left">
+                    <span class="drag-icon">☰</span>
+                    <div class="exercise-img-box">
+                        <span style="font-size: 26px;">💪</span>
+                    </div>
+                    <div class="exercise-info">
+                        <h3>Plank</h3>
+                        <p class="exercise-spec">x20</p>
+                    </div>
+                </div>
+                <span class="swap-icon">⇆</span>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="exercise-card">
+                <div class="exercise-left">
+                    <span class="drag-icon">☰</span>
+                    <div class="exercise-img-box">
+                        <span style="font-size: 26px;">🔥</span>
+                    </div>
+                    <div class="exercise-info">
+                        <h3>Russian Twist</h3>
+                        <p class="exercise-spec">x16</p>
+                    </div>
+                </div>
+                <span class="swap-icon">⇆</span>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="latihan.js"></script>
+</body>
+</html>

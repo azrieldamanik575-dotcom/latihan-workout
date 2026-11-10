@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuscleUp - Pilih Jenis Kelamin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="gender-body">
+
+    <div class="gender-container">
+        <!-- Pilihan Gender -->
+        <div class="gender-options">
+            <div class="gender-card active" onclick="selectGender(this, 'Laki-laki')">
+                <div class="gender-img-container">
+                    <img src="lakilaki.jpg" alt="Laki-laki">
+                </div>
+                <h3>Laki-laki</h3>
+            </div>
+
+            <div class="gender-card" onclick="selectGender(this, 'Perempuan')">
+                <div class="gender-img-container">
+                    <img src="wanita.jpg" alt="Perempuan">
+                </div>
+                <h3>Perempuan</h3>
+            </div>
+        </div>
+
+        <!-- Tombol Lanjut -->
+        <button id="nextBtn" class="lanjut-btn" onclick="finishOnboarding()">LANJUT</button>
+    </div>
+
+    <!-- 🔥 LETAK KODE TERSEBUT ADA DI SINI (DALAM TAG SCRIPT) 🔥 -->
+    <script>
+        let selectedGender = 'Laki-laki';
+
+        function selectGender(element, gender) {
+            document.querySelectorAll('.gender-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+            selectedGender = gender;
+        }
+
+        // FUNGSI YANG KAMU TANYAKAN BERADA DI BAWAH INI:
+        function finishOnboarding() {
+            localStorage.setItem('userGender', selectedGender);
+            window.location.href = 'goal.html'; // Mengarahkan ke halaman target otot
+        }
+    </script>
+</body>
+</html>

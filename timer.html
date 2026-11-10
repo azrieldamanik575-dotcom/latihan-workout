@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuscleUp - Workout Session</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .workout-screen {
+            max-width: 450px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #121212;
+            color: #ffffff;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .illustration-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 250px;
+            margin: 20px 0;
+        }
+        .exercise-emoji {
+            font-size: 100px;
+        }
+
+        .exercise-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .exercise-title {
+            font-size: 26px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .help-icon {
+            font-size: 18px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        .display-center {
+            font-size: 64px;
+            font-weight: 800;
+            text-align: center;
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 20px 0;
+            letter-spacing: 2px;
+        }
+
+        .controls-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            border: none;
+            background: #242424;
+            color: #ffffff;
+            border-radius: 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .ctrl-btn:active {
+            opacity: 0.8;
+        }
+        .ctrl-side {
+            flex: 1;
+        }
+        .ctrl-main {
+            flex: 2;
+            background: #00ff66;
+            color: #000000;
+            font-weight: bold;
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="workout-screen">
+        <!-- Top Bar: Hanya Tombol Back -->
+        <div class="top-bar">
+            <button class="icon-btn" onclick="kembaliKeDetail()">←</button>
+        </div>
+
+        <!-- Illustration -->
+        <div class="illustration-box">
+            <span class="exercise-emoji" id="exerciseEmoji">🏋️‍♂️</span>
+        </div>
+
+        <!-- Title & Subtitle -->
+        <div class="exercise-header">
+            <div class="exercise-title">
+                <span id="exerciseName">Latihan</span>
+                <span class="help-icon">❓</span>
+            </div>
+        </div>
+
+        <!-- Tampilan Tengah -->
+        <div class="display-center" id="displayCenter">00:30</div>
+
+        <!-- Bottom Controls -->
+        <div class="controls-bar">
+            <button class="ctrl-btn ctrl-side" onclick="kembaliKeDetail()">⏮</button>
+            <button class="ctrl-btn ctrl-main" onclick="selesaiLatihan()">✓</button>
+            <button class="ctrl-btn ctrl-side" onclick="kembaliKeDetail()">⏭</button>
+        </div>
+    </div>
+
+    <script>
+        // Menangkap parameter dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const exerciseParam = urlParams.get('exercise') || urlParams.get('nama');
+        const specParam = urlParams.get('spec');
+        const emojiParam = urlParams.get('emoji');
+        const kategoriParam = urlParams.get('kategori') || urlParams.get('category') || '';
+
+        if (exerciseParam) {
+            let nama = decodeURIComponent(exerciseParam);
+            document.getElementById('exerciseName').innerText = nama;
+            
+            // Atur Emoji
+            if (emojiParam) {
+                document.getElementById('exerciseEmoji').innerText = decodeURIComponent(emojiParam);
+            } else if (nama.toLowerCase().includes('squat')) {
+                document.getElementById('exerciseEmoji').innerText = "🏋️";
+            } else if (nama.toLowerCase().includes('lunge')) {
+                document.getElementById('exerciseEmoji').innerText = "🏃";
+            } else if (nama.toLowerCase().includes('press') || nama.toLowerCase().includes('kaki')) {
+                document.getElementById('exerciseEmoji').innerText = "🦵";
+            } else if (nama.toLowerCase().includes('bintang')) {
+                document.getElementById('exerciseEmoji').innerText = "🤸‍♂️";
+            } else if (nama.toLowerCase().includes('perut') || nama.toLowerCase().includes('rusia') || nama.toLowerCase().includes('sit up')) {
+                document.getElementById('exerciseEmoji').innerText = "💪";
+            }
+
+            // Atur Display Target / Pengulangan
+            if (specParam) {
+                document.getElementById('displayCenter').innerText = decodeURIComponent(specParam);
+            } else if (nama.toLowerCase().includes('bintang') || nama.toLowerCase().includes('plank')) {
+                document.getElementById('displayCenter').innerText = "00:30";
+            } else if (nama.toLowerCase().includes('squat') || nama.toLowerCase().includes('press')) {
+                document.getElementById('displayCenter').innerText = "x15";
+            } else if (nama.toLowerCase().includes('lunge')) {
+                document.getElementById('displayCenter').innerText = "x12";
+            } else if (nama.toLowerCase().includes('perut') || nama.toLowerCase().includes('rusia') || nama.toLowerCase().includes('sit up')) {
+                document.getElementById('displayCenter').innerText = "x20";
+            }
+        }
+
+        function kembaliKeDetail() {
+            if (kategoriParam) {
+                window.location.href = `detail-workout.html?kategori=${encodeURIComponent(kategoriParam)}`;
+            } else if (window.history.length > 1) {
+                history.back();
+            } else {
+                window.location.href = "dashboard.html";
+            }
+        }
+
+        function selesaiLatihan() {
+            // Update statistik latihan di localStorage
+            let currentSesi = parseInt(localStorage.getItem('totalSesi') || '0');
+            let currentKalori = parseInt(localStorage.getItem('totalKalori') || '0');
+            let currentMenit = parseInt(localStorage.getItem('totalMenit') || '0');
+
+            localStorage.setItem('totalSesi', currentSesi + 1);
+            localStorage.setItem('totalKalori', currentKalori + 80);
+            localStorage.setItem('totalMenit', currentMenit + 15);
+
+            alert("Sesi latihan selesai! 🎉");
+            kembaliKeDetail();
+        }
+    </script>
+</body>
+</html>

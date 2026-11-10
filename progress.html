@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout - Laporan Aktivitas</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px 15px;
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .history-card {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .history-date {
+            font-size: 12px;
+            color: #00ff66;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .history-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-activity {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .history-stats {
+            font-size: 13px;
+            color: #aaa;
+            text-align: right;
+        }
+
+        .empty-history {
+            text-align: center;
+            color: #666;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+
+        .btn-clear-history {
+            width: 100%;
+            background: transparent;
+            color: #ff4d4d;
+            border: 1px solid rgba(255, 77, 77, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #1a1a1a;
+            border-top: 1px solid #2a2a2a;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #888;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-item.active, .nav-item:hover { color: #00ff66; }
+        .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <h2 class="page-title">Riwayat Laporan</h2>
+
+        <div id="historyList">
+            <!-- Render via JS -->
+        </div>
+
+        <button class="btn-clear-history" onclick="clearHistory()">Hapus Semua Riwayat</button>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Latihan
+        </a>
+        <a href="progress.html" class="nav-item active">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+            Laporan
+        </a>
+        <a href="account.html" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            Pengaturan
+        </a>
+    </nav>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", function() {
+            renderHistory();
+        });
+
+        function renderHistory() {
+            let history = JSON.parse(localStorage.getItem("workoutHistory") || "[]");
+            let container = document.getElementById("historyList");
+
+            if (history.length === 0) {
+                container.innerHTML = `<div class="empty-history">Belum ada riwayat latihan.<br>Yuk mulai latihanmu hari ini! 💪</div>`;
+                return;
+            }
+
+            let html = "";
+            history.forEach(item => {
+                html += `
+                    <div class="history-card">
+                        <div class="history-date">📅 ${item.date}</div>
+                        <div class="history-details">
+                            <div class="history-activity">🏃‍♂️ ${item.activity}</div>
+                            <div class="history-stats">
+                                <b>${item.steps.toLocaleString()}</b> Langkah (${item.km} Km)<br>
+                                🔥 ${item.kcal} Kcal
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function clearHistory() {
+            if (confirm("Yakin ingin menghapus seluruh riwayat latihan?")) {
+                localStorage.removeItem("workoutHistory");
+                renderHistory();
+            }
+        }
+    </script>
+</body>
+</html>

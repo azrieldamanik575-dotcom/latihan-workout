@@ -1,0 +1,918 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.65),
+            rgba(0, 0, 0, 0.75)
+        ),
+        url("gym.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+
+.login-container {
+    background: rgba(27, 33, 27, 0.90);
+    backdrop-filter: blur(10px);
+
+    padding: 40px;
+    width: 350px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 35px;
+}
+
+h1 span {
+    color: #a5f044;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+p {
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    background: #101410;
+    border: 1px solid #444;
+    border-radius: 7px;
+    color: white;
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+    background: #a5f044;
+    border: none;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.register {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.register a {
+    color: #a5f044;
+    text-decoration: none;
+}
+ 
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 25px 0;
+    color: #888;
+    font-size: 12px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #444;
+}
+
+.google-btn {
+    width: 100%;
+    padding: 13px;
+    background: white;
+    color: #222;
+    border: none;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.google-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.google-btn:hover {
+    background: #eeeeee;
+}
+
+/* ================= DASHBOARD STYLES ================= */
+.dashboard-body {
+    background: #121212;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #1e1e1e;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar .logo {
+    font-size: 24px;
+    margin: 0;
+}
+
+.navbar .logo span {
+    color: #80ef80;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logout-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: #c0392b;
+}
+
+.dashboard-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.welcome-card {
+    background: linear-gradient(135deg, rgba(30,30,30,0.9), rgba(45,45,45,0.9));
+    border-left: 5px solid #80ef80;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.welcome-card h2 {
+    margin-bottom: 8px;
+}
+
+.welcome-card h2 span {
+    color: #80ef80;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat-box {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-box h3 {
+    font-size: 26px;
+    color: #80ef80;
+    margin-bottom: 5px;
+}
+
+.section-title {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.workout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.workout-card {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.workout-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.workout-card p {
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.start-btn {
+    background: #80ef80;
+    color: #111;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.start-btn:hover {
+    background: #66d466;
+}
+/* ================= DASHBOARD STYLES (SIMPEL) ================= */
+.dashboard-body {
+    background: #121212;
+    color: white;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #1e1e1e;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar .logo {
+    font-size: 24px;
+    margin: 0;
+    color: white;
+}
+
+.navbar .logo span {
+    color: #80ef80;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logout-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: #c0392b;
+}
+
+.dashboard-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.welcome-card {
+    background: linear-gradient(135deg, rgba(30,30,30,0.9), rgba(45,45,45,0.9));
+    border-left: 5px solid #80ef80;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.welcome-card h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.welcome-card h2 span {
+    color: #80ef80;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat-box {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-box h3 {
+    font-size: 26px;
+    color: #80ef80;
+    margin-bottom: 5px;
+}
+
+.section-title {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.workout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.workout-card {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.workout-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.workout-card p {
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.start-btn {
+    background: #80ef80;
+    color: #111;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.start-btn:hover {
+    background: #66d466;
+}
+.navbar .logo span, 
+.welcome-card h2 span, 
+.stat-box h3 {
+    color: #20b63e; /* Berubah jadi kuning */
+}
+
+.start-btn {
+    background: #0ea83d; /* Tombol jadi warna kuning */
+    color: #111;
+}
+.start-btn:hover {
+    background: #076c30; /* Kuning agak gelap sedikit saat kursor ditaruh di atasnya */
+}
+.welcome-card {
+    border-left: 5px solid #21b84c; /* Garis pinggir banner jadi kuning */
+}
+/* Styling Halaman Select Gender */
+.gender-body {
+    background-color: #121212;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.gender-container {
+    background: #1e1e1e;
+    padding: 30px 25px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    border: 1px solid #2a2a2a;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 60%;
+    height: 100%;
+    background: #f1c40f;
+}
+
+.gender-container h1 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.gender-container .subtitle {
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 30px;
+    line-height: 1.4;
+}
+
+.gender-options {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.gender-card {
+    flex: 1;
+    background: #2a2a2a;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 20px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gender-card:hover {
+    background: #333;
+}
+
+.gender-card.active {
+    border-color: #f1c40f;
+    background: rgba(241, 196, 15, 0.08);
+}
+
+.gender-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.gender-card h3 {
+    font-size: 15px;
+    margin: 0;
+    color: #fff;
+}
+
+.gender-card.active h3 {
+    color: #f1c40f;
+}
+
+.lanjut-btn {
+    width: 100%;
+    padding: 14px;
+    background: #f1c40f;
+    color: #000;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.lanjut-btn:hover {
+    background: #d4ac0d;
+}
+/* Container untuk 2 kartu berdampingan */
+.gender-options {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+/* Ukuran kartu disesuaikan */
+.gender-card {
+    flex: 1;
+    background: #2a2a2a;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 15px 10px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+}
+
+.gender-card:hover {
+    background: #333;
+}
+
+/* Efek mengambang & aksen kuning saat dipilih */
+.gender-card.active {
+    border-color: #f1c40f;
+    background: rgba(241, 196, 15, 0.08);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(241, 196, 15, 0.2);
+}
+
+/* MEMBATASI UKURAN GAMBAR (Penting) */
+.gender-img-container {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #444;
+}
+
+.gender-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.gender-card.active .gender-img-container {
+    border-color: #f1c40f;
+}
+
+.gender-card h3 {
+    font-size: 14px;
+    margin: 0;
+    color: #fff;
+}
+
+.gender-card.active h3 {
+    color: #f1c40f;
+}
+/* Styling Pilihan Target (Goal) */
+.goal-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.goal-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #2a2a2a;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: left;
+}
+
+.goal-card:hover {
+    background: #333;
+}
+
+.goal-card.active {
+    border-color: #f1c40f;
+    background: rgba(241, 196, 15, 0.08);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(241, 196, 15, 0.2);
+}
+
+.goal-icon {
+    font-size: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.goal-info h3 {
+    font-size: 15px;
+    margin: 0 0 4px 0;
+    color: #fff;
+}
+
+.goal-info p {
+    font-size: 12px;
+    margin: 0;
+    color: #aaa;
+}
+
+.goal-card.active .goal-info h3 {
+    color: #f1c40f;
+}
+/* Styling untuk Kotak Statistik Progress */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-card {
+    background: #2a2a2a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.stat-card h3 {
+    font-size: 13px;
+    color: #aaa;
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+}
+/* Styling Tombol Navigasi Kapsul & Selaras */
+.nav-links a {
+    background-color: #2a2a2a;
+    color: #fff !important;
+    padding: 8px 18px;
+    border-radius: 20px; /* Bentuk kapsul/bulat */
+    border: 1px solid #444;
+    text-decoration: none;
+    font-weight: bold; /* Teks tebal */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+}
+
+/* Efek Ngambang Saat Kursor Diarahkan (Hover) */
+.nav-links a:hover {
+    transform: translateY(-4px);
+    background-color: #2ecc71;
+    color: #121212 !important;
+    border-color: #2ecc71;
+    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
+}
+
+/* Efek Klik (Active) */
+.nav-links a:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(46, 204, 113, 0.2);
+}
+
+/* Tombol Aktif (Menyala Hijau Selaras dengan Logo & Statistik) */
+.nav-links a.active-nav {
+    background-color: #2ecc71 !important;
+    color: #121212 !important;
+    border-color: #2ecc71 !important;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+}
+/* =========================================
+   STYLE & ANIMASI HALAMAN WORKOUT (DETAIL)
+   ========================================= */
+
+/* Hero / Header Card Workout */
+.workout-hero-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 25px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.back-btn {
+    background: transparent;
+    border: none;
+    color: #2ecc71;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease;
+}
+
+.back-btn:hover {
+    transform: translateX(-4px);
+}
+
+.hero-content h2 {
+    font-size: 26px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.workout-meta {
+    display: flex;
+    gap: 20px;
+    color: #94a3b8;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.primary-start-btn {
+    width: 100%;
+    background: #2ecc71;
+    color: #121212;
+    border: none;
+    padding: 14px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+.primary-start-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.5);
+    background: #27ae60;
+}
+
+.primary-start-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Header Section Flex */
+.section-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.sub-text {
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* List Exercise Card */
+.exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.exercise-card {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.exercise-card:hover {
+    transform: translateY(-3px);
+    border-color: #2ecc71;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.exercise-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.drag-icon {
+    color: #4b5563;
+    font-size: 18px;
+    cursor: grab;
+}
+
+.exercise-img-box {
+    width: 55px;
+    height: 55px;
+    background-color: #262626;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.exercise-anim {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+/* Animasi Denyut / Ngedip halus pas kursor di atas gambar */
+.exercise-card:hover .exercise-anim {
+    transform: scale(1.15);
+}
+
+.exercise-info h3 {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.exercise-spec {
+    font-size: 13px;
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+.swap-icon {
+    color: #4b5563;
+    font-size: 18px;
+}
+/* Pengaturan agar tampilan otomatis menyesuaikan layar HP */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    /* Menyesuaikan ukuran container utama di HP */
+    .dashboard-container, .login-container, .progress-container {
+        width: 100% !important;
+        padding: 20px 15px !important;
+        box-sizing: border-box;
+    }
+
+    /* Membuat menu navbar di atas lebih rapi di layar kecil */
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        padding: 15px 10px;
+    }
+
+    .nav-links {
+        justify-content: center;
+    }
+
+    /* Kotak statistik berderet ke bawah atau 2 kolom di HP */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Ukuran teks judul agar tidak terlalu besar di HP */
+    h1 {
+        font-size: 24px !important;
+    }
+}

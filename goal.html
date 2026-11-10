@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuscleUp - Target Latihan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="gender-body">
+
+    <div class="gender-container">
+        <!-- Progress Bar Visual (Step 2) -->
+        <div class="progress-bar-container">
+            <div class="progress-bar" style="width: 100%;"></div>
+        </div>
+
+        <h1>Apa target utama Anda?</h1>
+        <p class="subtitle">Kami akan menyesuaikan intensitas dan rekomendasi program latihan untuk Anda.</p>
+
+        <!-- Options Goal -->
+        <div class="goal-options">
+            <div class="goal-card active" onclick="selectGoal(this, 'Membentuk Otot')">
+                <div class="goal-icon">💪</div>
+                <div class="goal-info">
+                    <h3>Membentuk Otot</h3>
+                    <p>Fokus menambah massa otot & volume fisik</p>
+                </div>
+            </div>
+
+            <div class="goal-card" onclick="selectGoal(this, 'Menurunkan Berat Badan')">
+                <div class="goal-icon">🔥</div>
+                <div class="goal-info">
+                    <h3>Menurunkan Berat Badan</h3>
+                    <p>Bakar kalori ekstra & kencangkan tubuh</p>
+                </div>
+            </div>
+
+            <div class="goal-card" onclick="selectGoal(this, 'Menjaga Kebugaran')">
+                <div class="goal-icon">⚡</div>
+                <div class="goal-info">
+                    <h3>Menjaga Kebugaran</h3>
+                    <p>Stamina harian & pola hidup sehat</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continue Button -->
+        <button id="finishGoalBtn" class="lanjut-btn" onclick="finishGoal()">MASUK KE DASHBOARD</button>
+    </div>
+
+    <script>
+        let selectedGoal = 'Membentuk Otot';
+
+        function selectGoal(element, goal) {
+            document.querySelectorAll('.goal-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+            selectedGoal = goal;
+        }
+
+        function finishGoal() {
+            localStorage.setItem('userGoal', selectedGoal);
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

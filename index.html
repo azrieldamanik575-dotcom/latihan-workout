@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuscleUp - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>MUSCLE<span>UP</span></h1>
+        <h2>Welcome Back!</h2>
+        <p>Mulai perjalanan membentuk tubuh idealmu.</p>
+
+        <form id="loginForm">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="Masukkan email" required>
+
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Masukkan password" required>
+
+            <button type="submit">LOGIN</button>
+        </form>
+        
+        <div class="divider">
+            <span>ATAU</span>
+        </div>
+
+        <button type="button" class="google-btn" id="googleLogin">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo" width="18">
+            Continue with Google
+        </button>
+
+        <p class="register">
+            Belum punya akun? <a href="register.html">Daftar sekarang</a>
+        </p>
+    </div>
+
+    <!-- Panggil file JavaScript -->
+    <script src="latihan.js"></script>
+</body>
+</html>

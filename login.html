@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuscleUp - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .login-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 40px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 5px;
+            color: #00ff66;
+        }
+        .login-card p {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background: #242424;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        .form-control:focus {
+            border-color: #00ff66;
+            outline: none;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: #00ff66;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.2s;
+        }
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+        .auth-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+        .auth-link a {
+            color: #00ff66;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h1 style="text-align: center; font-size: 28px; margin-bottom: 0;">MUSCLE<span>UP</span></h1>
+        <h2>Welcome Back</h2>
+        <p>Silakan masuk untuk melanjutkan latihanmu.</p>
+
+        <!-- Form Login -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" class="form-control" placeholder="Masukkan email kamu" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan password" required>
+            </div>
+
+            <button type="submit" class="btn-submit">LOGIN</button>
+        </form>
+
+        <div class="auth-link">
+            Belum punya akun? <a href="register.html">Daftar sekarang</a>
+        </div>
+    </div>
+
+    <!-- Script Login Sederhana -->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simpan nama default atau ambil dari input jika ada, lalu masuk ke dashboard
+            if (!localStorage.getItem('userName')) {
+                localStorage.setItem('userName', 'Azriel');
+            }
+
+            alert('Login Berhasil! Selamat datang kembali 💪');
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html>
