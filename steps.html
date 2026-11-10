@@ -414,11 +414,22 @@
             alert("Sesi latihan selesai! Data berhasil disimpan ke Riwayat Laporan. 🎉");
         }
 
+        function getUserKey() {
+            let savedName = localStorage.getItem("userName") || "Azriel";
+            return "user_" + savedName.replace(/\(Google\)/gi, '').trim().toLowerCase();
+        }
+
         function saveToHistory(entry) {
-            let history = JSON.parse(localStorage.getItem("workoutHistory") || "[]");
+            let userKey = getUserKey();
+            let history = JSON.parse(localStorage.getItem(userKey + "_workoutHistory") || "[]");
             history.unshift(entry);
-            if (history.length > 10) history.pop();
-            localStorage.setItem("workoutHistory", JSON.stringify(history));
+            if (history.length > 15) history.pop();
+            localStorage.setItem(userKey + "_workoutHistory", JSON.stringify(history));
+
+            let currentSesi = parseInt(localStorage.getItem(userKey + '_totalSesi') || '0');
+            let currentKalori = parseInt(localStorage.getItem(userKey + '_totalKalori') || '0');
+            localStorage.setItem(userKey + '_totalSesi', currentSesi + 1);
+            localStorage.setItem(userKey + '_totalKalori', currentKalori + (entry.kcal || 0));
         }
 
         function updateTimerDisplay() {

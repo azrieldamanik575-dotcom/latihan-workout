@@ -137,8 +137,21 @@
             renderHistory();
         });
 
+        function getUserKey() {
+            let savedName = localStorage.getItem("userName") || "Azriel";
+            return "user_" + savedName.replace(/\(Google\)/gi, '').trim().toLowerCase();
+        }
+
         function renderHistory() {
-            let history = JSON.parse(localStorage.getItem("workoutHistory") || "[]");
+            let userKey = getUserKey();
+            let historyData = localStorage.getItem(userKey + "_workoutHistory");
+
+            // Fallback migrasi hanya untuk akun default 'azriel'
+            if (historyData === null && userKey === "user_azriel") {
+                historyData = localStorage.getItem("workoutHistory");
+            }
+
+            let history = JSON.parse(historyData || "[]");
             let container = document.getElementById("historyList");
 
             if (history.length === 0) {
@@ -154,7 +167,7 @@
                         <div class="history-details">
                             <div class="history-activity">🏃‍♂️ ${item.activity}</div>
                             <div class="history-stats">
-                                <b>${item.steps.toLocaleString()}</b> Langkah (${item.km} Km)<br>
+                                ${item.steps ? `<b>${item.steps.toLocaleString()}</b> Langkah (${item.km} Km)<br>` : ''}
                                 🔥 ${item.kcal} Kcal
                             </div>
                         </div>
@@ -167,7 +180,11 @@
 
         function clearHistory() {
             if (confirm("Yakin ingin menghapus seluruh riwayat latihan?")) {
-                localStorage.removeItem("workoutHistory");
+                let userKey = getUserKey();
+                localStorage.removeItem(userKey + "_workoutHistory");
+                if (userKey === "user_azriel") {
+                    localStorage.removeItem("workoutHistory");
+                }
                 renderHistory();
             }
         }

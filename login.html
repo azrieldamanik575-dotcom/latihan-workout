@@ -119,12 +119,15 @@
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Simpan nama default atau ambil dari input jika ada, lalu masuk ke dashboard
-            if (!localStorage.getItem('userName')) {
-                localStorage.setItem('userName', 'Azriel');
+            const emailInput = document.getElementById('loginEmail').value.trim();
+            let defaultName = 'Azriel';
+            if (emailInput) {
+                defaultName = emailInput.split('@')[0];
             }
+            const formattedName = defaultName.charAt(0).toUpperCase() + defaultName.slice(1);
 
-            alert('Login Berhasil! Selamat datang kembali 💪');
+            localStorage.setItem('userName', formattedName);
+            alert('Login Berhasil! Selamat datang kembali, ' + formattedName + ' 💪');
             window.location.href = 'dashboard.html';
         });
     </script>

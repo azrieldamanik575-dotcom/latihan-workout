@@ -127,24 +127,28 @@
     <!-- Script JavaScript untuk Menyimpan Nama & Redirect -->
     <script>
         document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Mencegah form reload bawaan browser
+            e.preventDefault();
 
             const name = document.getElementById('regName').value.trim();
             const password = document.getElementById('regPassword').value;
             const confirmPassword = document.getElementById('regConfirmPassword').value;
 
-            // Validasi sederhana pencocokan password
             if (password !== confirmPassword) {
                 alert('Password dan Konfirmasi Password tidak sama!');
                 return;
             }
 
-            // Simpan nama lengkap ke localStorage agar tampil di Dashboard
-            localStorage.setItem('userName', name);
+            const formattedName = name.charAt(0).toUpperCase() + name.slice(1);
+            localStorage.setItem('userName', formattedName);
 
-            alert('Registrasi Berhasil! Selamat datang di MuscleUp, ' + name + ' 🎉');
-            
-            // Langsung arahkan ke halaman dashboard
+            // Inisialisasi data user baru agar mulai dari 0 bersih
+            let userKey = "user_" + formattedName.toLowerCase();
+            localStorage.setItem(userKey + "_totalSesi", "0");
+            localStorage.setItem(userKey + "_totalKalori", "0");
+            localStorage.setItem(userKey + "_totalMenit", "0");
+            localStorage.setItem(userKey + "_workoutHistory", JSON.stringify([]));
+
+            alert('Registrasi Berhasil! Selamat datang di MuscleUp, ' + formattedName + ' 🎉');
             window.location.href = 'dashboard.html';
         });
     </script>

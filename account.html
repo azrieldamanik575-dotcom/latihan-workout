@@ -208,7 +208,17 @@
 
         document.getElementById("deleteAccountBtn").addEventListener("click", function() {
             if (confirm("Apakah kamu yakin ingin menghapus akun dan mereset semua data latihan?")) {
-                localStorage.clear();
+                let savedName = localStorage.getItem("userName") || "Azriel";
+                let userKey = "user_" + savedName.replace(/\(Google\)/gi, '').trim().toLowerCase();
+
+                localStorage.removeItem(userKey + "_workoutHistory");
+                localStorage.removeItem(userKey + "_totalSesi");
+                localStorage.removeItem(userKey + "_totalKalori");
+                localStorage.removeItem(userKey + "_totalMenit");
+                localStorage.removeItem(userKey + "_userSteps");
+                localStorage.removeItem(userKey + "_stepGoal");
+                localStorage.removeItem("userName");
+
                 alert("Akun dan data latihan berhasil direset.");
                 window.location.href = "index.html";
             }

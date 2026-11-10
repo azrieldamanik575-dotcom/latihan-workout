@@ -193,14 +193,34 @@
         }
 
         function selesaiLatihan() {
-            // Update statistik latihan di localStorage
-            let currentSesi = parseInt(localStorage.getItem('totalSesi') || '0');
-            let currentKalori = parseInt(localStorage.getItem('totalKalori') || '0');
-            let currentMenit = parseInt(localStorage.getItem('totalMenit') || '0');
+            let savedName = localStorage.getItem("userName") || "Azriel";
+            savedName = savedName.replace(/\(Google\)/gi, '').trim();
+            let userKey = "user_" + savedName.toLowerCase();
 
-            localStorage.setItem('totalSesi', currentSesi + 1);
-            localStorage.setItem('totalKalori', currentKalori + 80);
-            localStorage.setItem('totalMenit', currentMenit + 15);
+            // Update statistik latihan per-user
+            let currentSesi = parseInt(localStorage.getItem(userKey + '_totalSesi') || '0');
+            let currentKalori = parseInt(localStorage.getItem(userKey + '_totalKalori') || '0');
+            let currentMenit = parseInt(localStorage.getItem(userKey + '_totalMenit') || '0');
+
+            localStorage.setItem(userKey + '_totalSesi', currentSesi + 1);
+            localStorage.setItem(userKey + '_totalKalori', currentKalori + 80);
+            localStorage.setItem(userKey + '_totalMenit', currentMenit + 15);
+
+            // Simpan juga ke riwayat latihan user
+            let history = JSON.parse(localStorage.getItem(userKey + '_workoutHistory') || "[]");
+            let today = new Date();
+            let dateStr = today.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
+            
+            let namaGerakan = document.getElementById('exerciseName').innerText || 'Latihan Otot';
+            history.unshift({
+                date: dateStr,
+                activity: namaGerakan,
+                steps: 0,
+                km: 0,
+                kcal: 80
+            });
+            if (history.length > 15) history.pop();
+            localStorage.setItem(userKey + '_workoutHistory', JSON.stringify(history));
 
             alert("Sesi latihan selesai! 🎉");
             kembaliKeDetail();

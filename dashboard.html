@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -170,9 +170,9 @@
             <h1 class="logo">WORK<span>OUT</span></h1>
         </header>
 
-        <!-- 2. CARD SELAMAT DATANG AZRIEL -->
+        <!-- 2. CARD SELAMAT DATANG -->
         <section class="welcome-card">
-            <h2 style="margin: 0 0 5px 0; font-size: 18px;">Selamat Datang, <span id="welcomeName" style="color: #00ff66;">Azriel</span>! ðŸ’ª</h2>
+            <h2 style="margin: 0 0 5px 0; font-size: 18px;">Selamat Datang, <span id="welcomeName" style="color: #00ff66;">Azriel</span>! 💪</h2>
             <p style="margin: 0; color: #aaa; font-size: 13px;">Konsistensi adalah kunci. Siap latihan hari ini?</p>
         </section>
 
@@ -258,9 +258,21 @@
             savedName = savedName.replace(/\(Google\)/gi, '').trim();
             document.getElementById("welcomeName").textContent = savedName;
 
-            document.getElementById('statSesi').innerText = localStorage.getItem('totalSesi') || '0';
-            document.getElementById('statKalori').innerText = (localStorage.getItem('totalKalori') || '0') + " Kcal";
-            document.getElementById('statMenit').innerText = (localStorage.getItem('totalMenit') || '0') + " Menit";
+            let userKey = "user_" + savedName.toLowerCase();
+            let sesi = localStorage.getItem(userKey + '_totalSesi');
+            let kalori = localStorage.getItem(userKey + '_totalKalori');
+            let menit = localStorage.getItem(userKey + '_totalMenit');
+
+            // Fallback migrasi jika akun default azriel
+            if (sesi === null && savedName.toLowerCase() === 'azriel') {
+                sesi = localStorage.getItem('totalSesi');
+                kalori = localStorage.getItem('totalKalori');
+                menit = localStorage.getItem('totalMenit');
+            }
+
+            document.getElementById('statSesi').innerText = sesi || '0';
+            document.getElementById('statKalori').innerText = (kalori || '0') + " Kcal";
+            document.getElementById('statMenit').innerText = (menit || '0') + " Menit";
         });
     </script>
 </body>
